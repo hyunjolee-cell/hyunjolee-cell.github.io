@@ -114,7 +114,77 @@ export function Footer() {
 
       <div
         data-closing
-        className="relative mt-16 border-t border-paiks-yellow/15 pt-7"
+        className="relative mt-14 border-t border-paiks-yellow/15 pt-7"
+      >
+        <p className="text-[10px] font-bold tracking-[0.42em] text-paiks-yellow uppercase">
+          Downloads — 템플릿 · 결과물
+        </p>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <a
+            href="/downloads/source-code.zip"
+            download
+            className="group glass-strong relative flex items-center justify-between gap-4 rounded-2xl px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-paiks-yellow md:px-6"
+            style={{ boxShadow: '0 8px 24px rgba(11,21,48,0.45)' }}
+          >
+            <div className="flex items-center gap-4">
+              <span
+                className="grid size-11 place-items-center rounded-xl bg-paiks-yellow text-paiks-navy"
+                style={{ boxShadow: 'var(--shadow-glow-yellow)' }}
+              >
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 2v6h6V2M4 2h16v20H4z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                  <path d="M9 13h6M9 17h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </span>
+              <div>
+                <p className="text-sm font-bold text-paper md:text-base">
+                  소스 코드 (Template)
+                </p>
+                <p className="mt-0.5 text-xs text-paper/55">
+                  React + Vite + Tailwind + GSAP · 풀 소스
+                </p>
+              </div>
+            </div>
+            <span className="font-mono text-[10px] tracking-[0.32em] text-paiks-yellow uppercase transition-transform group-hover:translate-x-1">
+              .ZIP ↓
+            </span>
+          </a>
+
+          <a
+            href="/downloads/site-html.zip"
+            download
+            className="group glass-strong relative flex items-center justify-between gap-4 rounded-2xl px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-paiks-yellow md:px-6"
+            style={{ boxShadow: '0 8px 24px rgba(11,21,48,0.45)' }}
+          >
+            <div className="flex items-center gap-4">
+              <span
+                className="grid size-11 place-items-center rounded-xl bg-paiks-navy text-paiks-yellow"
+                style={{ border: '1px solid rgba(255,199,44,0.5)' }}
+              >
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 5h18v14H3z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                  <path d="M3 9h18M7 14l2 2-2 2M17 14l-2 2 2 2M12 13l-2 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <div>
+                <p className="text-sm font-bold text-paper md:text-base">
+                  HTML 패키지 (Pre-built)
+                </p>
+                <p className="mt-0.5 text-xs text-paper/55">
+                  빌드된 정적 사이트 · 바로 호스팅 가능
+                </p>
+              </div>
+            </div>
+            <span className="font-mono text-[10px] tracking-[0.32em] text-paiks-yellow uppercase transition-transform group-hover:translate-x-1">
+              .ZIP ↓
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div
+        data-closing
+        className="relative mt-10 border-t border-paiks-yellow/15 pt-7"
       >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[2fr_1fr_1fr]">
           <div>

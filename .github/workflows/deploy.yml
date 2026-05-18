@@ -33,10 +33,32 @@ jobs:
         run: |
           mkdir -p dist/manuals
           cp -rv public/manuals/. dist/manuals/
-          echo "--- dist/manuals listing ---"
           ls -lh dist/manuals
-          echo "--- dist root sizes ---"
-          du -sh dist dist/manuals dist/brands 2>/dev/null || true
+
+      - name: Bundle source code (template)
+        run: |
+          mkdir -p source-bundle
+          rsync -a \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            --exclude='.git' \
+            --exclude='source-bundle' \
+            --exclude='public/manuals' \
+            ./ source-bundle/baekdabang-rollout-v3/
+          mkdir -p dist/downloads
+          (cd source-bundle && zip -rq ../dist/downloads/source-code.zip baekdabang-rollout-v3)
+          rm -rf source-bundle
+          echo "--- source-code.zip ---"
+          ls -lh dist/downloads/source-code.zip
+
+      - name: Bundle HTML package
+        run: |
+          mkdir -p html-bundle/baekdabang-html
+          rsync -a --exclude='manuals' --exclude='downloads' dist/ html-bundle/baekdabang-html/
+          (cd html-bundle && zip -rq ../dist/downloads/site-html.zip baekdabang-html)
+          rm -rf html-bundle
+          echo "--- site-html.zip ---"
+          ls -lh dist/downloads/site-html.zip
 
       - uses: actions/configure-pages@v5
 
