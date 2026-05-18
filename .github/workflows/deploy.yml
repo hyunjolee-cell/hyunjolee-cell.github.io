@@ -29,6 +29,15 @@ jobs:
 
       - run: npm run build
 
+      - name: Ensure manuals are bundled into dist
+        run: |
+          mkdir -p dist/manuals
+          cp -rv public/manuals/. dist/manuals/
+          echo "--- dist/manuals listing ---"
+          ls -lh dist/manuals
+          echo "--- dist root sizes ---"
+          du -sh dist dist/manuals dist/brands 2>/dev/null || true
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
