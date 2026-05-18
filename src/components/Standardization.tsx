@@ -102,17 +102,12 @@ function ManualCover({ manual, index }: { manual: Manual; index: number }) {
   const subColor = yellowBg ? 'rgba(31,46,92,0.7)' : 'rgba(255,252,239,0.7)'
   const accentColor = yellowBg ? '#1f2e5c' : '#ffc72c'
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    alert(
-      `[${manual.title}]\n\n사내 자료입니다.\n외부 공개가 제한된 문서이며, 실제 파일은 별도 요청 시 공유드립니다.`,
-    )
-  }
   return (
     <a
       data-std-manual
-      href="#"
-      onClick={handleClick}
+      href={manual.fileUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       className="group relative block overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1 cursor-pointer"
       style={{
         aspectRatio: '4 / 5',
@@ -167,7 +162,7 @@ function ManualCover({ manual, index }: { manual: Manual; index: number }) {
             <span
               className="flex items-center gap-1 transition-transform duration-300 group-hover:translate-x-0.5"
             >
-              INTERNAL ONLY
+              VIEW PDF
               <svg
                 viewBox="0 0 16 16"
                 width="10"
@@ -176,11 +171,10 @@ function ManualCover({ manual, index }: { manual: Manual; index: number }) {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M5 7V5a3 3 0 116 0v2M4 7h8v6H4z"
+                  d="M4 4h8v8M4 12L12 4"
                   stroke="currentColor"
-                  strokeWidth="1.4"
+                  strokeWidth="1.8"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                 />
               </svg>
             </span>
