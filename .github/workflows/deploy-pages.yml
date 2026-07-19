@@ -40,6 +40,7 @@ jobs:
           test -f _site/couple-finance/app-v2.css
           test -f _site/couple-finance/auth-bridge.js
           test -f _site/couple-finance/auth-fix.js
+          test -f _site/couple-finance/quick-accounts.js
           echo 'Couple finance deployment files:'
           find _site/couple-finance -maxdepth 2 -type f -print | sort
 
@@ -48,6 +49,7 @@ jobs:
           node --check _site/couple-finance/app-v2.js
           node --check _site/couple-finance/auth-bridge.js
           node --check _site/couple-finance/auth-fix.js
+          node --check _site/couple-finance/quick-accounts.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
