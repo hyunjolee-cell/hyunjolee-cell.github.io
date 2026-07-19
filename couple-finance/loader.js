@@ -6,10 +6,8 @@
       if(!response.ok) throw new Error(`${path} 로드 실패 (${response.status})`);
       return response.text();
     }));
-    const moduleUrl=URL.createObjectURL(new Blob(parts,{type:'text/javascript'}));
-    await import(moduleUrl);
-    URL.revokeObjectURL(moduleUrl);
+    new Function(parts.join(''))();
   }catch(error){
-    document.querySelector('#app').innerHTML=`<div style="padding:32px;font-family:sans-serif"><h2>앱을 불러오지 못했습니다</h2><p>${String(error.message||error)}</p></div>`;
+    document.querySelector('#app').innerHTML=`<div style="padding:32px;font-family:sans-serif"><h2>앱을 불러오지 못했습니다</h2><p>${String(error.message||error)}</p><button onclick="location.reload()">다시 시도</button></div>`;
   }
 })();
