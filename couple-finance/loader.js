@@ -1,5 +1,5 @@
 (async()=>{
-  const paths=Array.from({length:8},(_,i)=>`./chunks/app-${String(i+1).padStart(3,'0')}.txt`);
+  const paths=Array.from({length:9},(_,i)=>`./chunks/app-${String(i+1).padStart(3,'0')}.txt`);
   try{
     const parts=await Promise.all(paths.map(async path=>{
       const response=await fetch(path,{cache:'no-store'});
