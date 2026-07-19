@@ -39,6 +39,11 @@ jobs:
           echo 'Couple finance deployment files:'
           find _site/couple-finance -maxdepth 2 -type f -print | sort
 
+      - name: Validate couple finance JavaScript
+        run: |
+          cat _site/couple-finance/chunks/app-*.txt > /tmp/couple-finance-app.js
+          node --check /tmp/couple-finance-app.js
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
