@@ -36,13 +36,13 @@ jobs:
           touch _site/.nojekyll
           test -f _site/index.html
           test -f _site/couple-finance/index.html
+          test -f _site/couple-finance/app-v2.js
+          test -f _site/couple-finance/app-v2.css
           echo 'Couple finance deployment files:'
           find _site/couple-finance -maxdepth 2 -type f -print | sort
 
       - name: Validate couple finance JavaScript
-        run: |
-          cat _site/couple-finance/chunks/app-*.txt > /tmp/couple-finance-app.js
-          node --check /tmp/couple-finance-app.js
+        run: node --check _site/couple-finance/app-v2.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
