@@ -35,12 +35,15 @@ jobs:
             ./ _site/
           touch _site/.nojekyll
           test -f _site/index.html
+          test -f _site/finance.html
+          test -f _site/404.html
           test -f _site/couple-finance/index.html
           test -f _site/couple-finance/app-v2.js
           test -f _site/couple-finance/app-v2.css
           test -f _site/couple-finance/auth-bridge.js
           test -f _site/couple-finance/anonymous-access.js
-          echo 'Couple finance deployment files:'
+          echo 'Finance deployment files:'
+          ls -l _site/finance.html _site/404.html
           find _site/couple-finance -maxdepth 2 -type f -print | sort
 
       - name: Validate couple finance JavaScript
