@@ -1,0 +1,61 @@
+/div><div class="section-note">\uC124\uC815 \uBCC0\uACBD \uC774\uB825 \uC790\uB3D9 \uBC18\uC601</div></div>
+      <div class="card"><table class="forecast-table"><thead><tr><th>\uC2DC\uC810</th><th>\uCD94\uAC00 \uC800\uCD95</th><th>\uC608\uC0C1 \uC218\uC775</th><th>\uC608\uC0C1 \uC21C\uC790\uC0B0</th></tr></thead><tbody>
+        ${a.map(c=>{let f=q(t,c);return`<tr><td>${c<12?`${c}\uAC1C\uC6D4`:`${c/12}\uB144`} \uB4A4</td><td>${p(f.contributionTotal)}\uC6D0</td><td>${p(f.returnAmount)}\uC6D0</td><td><b>${p(f.futureNet)}\uC6D0</b></td></tr>`}).join("")}
+      </tbody></table></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div class="section-title">\uBAA9\uD45C \uB2EC\uC131 \uC608\uC0C1</div><div class="section-note">\uC21C\uC790\uC0B0 \uAE30\uC900</div></div>
+      <div class="card">
+        ${o.state.goals.map(c=>{let f=ee(t,Number(c.target)),L=f===null?"50\uB144 \uC774\uC0C1":f===0?"\uC774\uBBF8 \uB2EC\uC131":w(N(t,f)),T=Math.min(100,s.currentNet/Math.max(1,Number(c.target))*100);return`<div class="goal-row"><div class="goal-info"><b>${d(c.name)}</b><small>\uBAA9\uD45C ${y(c.target)} \xB7 \uD604\uC7AC ${Math.max(0,T).toFixed(1)}%</small></div><div class="goal-right"><b>${L}</b><small>${f&&f>0?`${f}\uAC1C\uC6D4 \uC608\uC0C1`:""}</small></div></div>`}).join("")}
+      </div>
+    </section>
+  </main>`}function de(){let e=o.state,t=i.selectedMonth,s=[["salaryA",`${e.profile.partnerA} \uC6D4\uAE09`],["salaryB",`${e.profile.partnerB} \uC6D4\uAE09`],["otherIncome","\uC6D4 \uD3C9\uADE0 \uAE30\uD0C0\uC18C\uB4DD"],["budgetA",`${e.profile.partnerA} \uC0DD\uD65C\uBE44`],["budgetB",`${e.profile.partnerB} \uC0DD\uD65C\uBE44`],["budgetJoint","\uACF5\uB3D9 \uC0DD\uD65C\uBE44"],["housing","\uC8FC\uAC70 \uACE0\uC815\uBE44"]];return`<main>
+    <section class="card settings-card preset-card">
+      <h3>\uD604\uC7AC \uC2DC\uD2B8 \uAE30\uBCF8\uAC12</h3>
+      <div class="form-note">\uACF5\uC720\uD55C \uAC00\uACC4\uBD80 \uC2DC\uD2B8\uC758 \uC6D4\uAE09\xB7\uC0DD\uD65C\uBE44\xB7\uC8FC\uAC70\uBE44\xB7\uC801\uAE08\xB7\uACF5\uACFC\uAE08 \uAC12\uC744 \uC801\uC6A9\uD569\uB2C8\uB2E4. \uC6D4\uBCC4 \uC0AC\uC6A9\uB0B4\uC5ED\uC740 \uC720\uC9C0\uB429\uB2C8\uB2E4.</div>
+      <div class="preset-summary">
+        <span>\uC6D4 \uC218\uC785 <b>${y(796e4)}</b></span>
+        <span>\uC0DD\uD65C\uBE44 \uC608\uC0B0 <b>${y(3027255)}</b></span>
+        <span>\uC801\uAE08 \uD56D\uBAA9 \uD569\uACC4 <b>${y(411e4)}</b></span>
+      </div>
+      <button class="secondary-btn full" data-action="apply-sheet-defaults">\uD604\uC7AC \uC2DC\uD2B8 \uAE30\uBCF8\uAC12 \uB2E4\uC2DC \uC801\uC6A9</button>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uAE30\uBCF8 \uC815\uBCF4</h3>
+      <div class="two-fields"><div class="field"><label>\uCCAB \uBC88\uC9F8 \uC0AC\uC6A9\uC790\uBA85</label><input id="partnerA" value="${d(e.profile.partnerA)}"></div><div class="field"><label>\uB450 \uBC88\uC9F8 \uC0AC\uC6A9\uC790\uBA85</label><input id="partnerB" value="${d(e.profile.partnerB)}"></div></div>
+      <div class="field"><label>\uC124\uC815 \uC801\uC6A9 \uC2DC\uC791\uC6D4</label><input id="effectiveMonth" type="month" value="${t}"></div>
+      <button class="secondary-btn full" data-action="save-profile">\uAE30\uBCF8 \uC815\uBCF4 \uC800\uC7A5</button>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uC6D4 \uACE0\uC815\uAE08 \uC124\uC815</h3>
+      <div class="form-note" style="margin:0 0 12px">\uBCC0\uACBD\uD55C \uAE08\uC561\uC740 \uC120\uD0DD\uD55C \uC801\uC6A9\uC6D4\uBD80\uD130 \uBC18\uC601\uB418\uBA70 \uACFC\uAC70 \uC6D4\uC740 \uC720\uC9C0\uB429\uB2C8\uB2E4.</div>
+      ${s.map(([a,n])=>`<div class="setting-row"><div><b>${d(n)}</b><small>${w(t)} \uAE30\uC900</small></div><div class="money-input"><input data-rule-input="${a}" type="number" value="${$(a,t)}"><span>\uC6D0</span></div></div>`).join("")}
+      <button class="primary-btn full" data-action="save-rules">\uACE0\uC815\uAE08 \uC801\uC6A9</button>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uC801\uAE08\xB7\uC800\uCD95 \uC124\uC815</h3>
+      ${e.savingBuckets.map(a=>`<div class="setting-row"><div><b>${d(a.name)}</b><small>${w(t)}\uBD80\uD130</small></div><div class="money-input"><input data-saving-input="${a.id}" type="number" value="${k(a.history,t)}"><span>\uC6D0</span></div></div>`).join("")}
+      <div class="btn-row"><button class="ghost-btn" data-action="add-saving">\uD56D\uBAA9 \uCD94\uAC00</button><button class="primary-btn" data-action="save-savings">\uC800\uCD95 \uC124\uC815 \uC801\uC6A9</button></div>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uBCC0\uB3D9\uAE08 \uD56D\uBAA9</h3>
+      ${e.variableTemplates.map(a=>`<div class="setting-row"><div><b>${d(a.name)}</b><small>\uC2E4\uC81C \uAE08\uC561 \uC785\uB825 \uC804 \uC608\uC0C1\uAC12</small></div><div class="money-input"><input data-variable-estimate="${a.id}" type="number" value="${Number(a.estimate||0)}"><span>\uC6D0</span></div></div>`).join("")}
+      <div class="btn-row"><button class="ghost-btn" data-action="add-variable">\uD56D\uBAA9 \uCD94\uAC00</button><button class="secondary-btn" data-action="save-variable-estimates">\uC608\uC0C1\uAC12 \uC800\uC7A5</button></div>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uD604\uC7AC \uC790\uC0B0\xB7\uBD80\uCC44</h3>
+      <div class="two-fields">
+        <div class="field"><label>\uC801\uAE08\xB7\uC608\uAE08</label><input id="savingAsset" type="number" value="${Number(e.assets.savingAsset)}"></div>
+        <div class="field"><label>\uD604\uAE08\uC131 \uC790\uC0B0</label><input id="cashAsset" type="number" value="${Number(e.assets.cashAsset)}"></div>
+        <div class="field"><label>\uD22C\uC790\uC790\uC0B0</label><input id="investmentAsset" type="number" value="${Number(e.assets.investmentAsset)}"></div>
+        <div class="field"><label>\uC804\uCCB4 \uBD80\uCC44</label><input id="debt" type="number" value="${Number(e.assets.debt)}"></div>
+      </div>
+      <div class="field"><label>\uD3EC\uCE90\uC2A4\uD305 \uC608\uC0C1 \uC5F0 \uC218\uC775\uB960</label><input id="annualReturn" type="number" step="0.1" value="${Number(e.assets.annualReturn)}"></div>
+      <button class="primary-btn full" data-action="save-assets">\uC790\uC0B0 \uC815\uBCF4 \uC800\uC7A5</button>
+    </section>
+    <section class="section card settings-card">
+      <h3>\uBAA9\uD45C \uC790\uC0B0</h3>
+      ${e.goals.map(a=>`<div class="setting-row"><div><b>${d(a.name)}</b><small>\uD3EC\uCE90\uC2A4\uD305 \uB2EC\uC131 \uC2DC\uC810 \uACC4\uC0B0</small></div><div class="money-input"><input data-goal="${a.id}" type="number" value="${Number(a.target)}"><span>\uC6D0</span></div></div>`).join("")}
+      <div class="btn-row"><button class="ghost-btn" data-action="add-goal">\uBAA9\uD45C \uCD94\uAC00</button><button class="secondary-btn" data-action="save-goals">\uBAA9\uD45C \uC800\uC7A5</button></div>
+    </section>
+    <section class="sect

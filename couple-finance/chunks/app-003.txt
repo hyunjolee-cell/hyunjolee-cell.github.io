@@ -1,0 +1,56 @@
+638</label><input id="authPassword" type="password" autocomplete="${i.authMode==="signup"?"new-password":"current-password"}" minlength="6" placeholder="6\uC790 \uC774\uC0C1" required /></div>
+        <button class="primary-btn full" type="submit">${i.authMode==="login"?"\uB85C\uADF8\uC778":"\uD68C\uC6D0\uAC00\uC785"}</button>
+      </form>
+      <div class="form-note">\uD68C\uC6D0\uAC00\uC785 \uD6C4 \uC774\uBA54\uC77C \uD655\uC778\uC774 \uCF1C\uC838 \uC788\uC73C\uBA74 \uD655\uC778 \uBA54\uC77C\uC758 \uB9C1\uD06C\uB97C \uB20C\uB7EC\uC57C \uB85C\uADF8\uC778\uB429\uB2C8\uB2E4.</div>
+    </div>
+  </div>`}function ie(){let e=o.user?.user_metadata?.display_name||"";return`<div class="center-shell">
+    <div class="auth-card">
+      <div class="logo-box">\u2302</div>
+      <h1>\uD568\uAED8 \uC4F8 \uC9D1\uC744 \uC5F0\uACB0\uD569\uB2C8\uB2E4</h1>
+      <p>\uD55C \uC0AC\uB78C\uC774 \uC0C8 \uAC00\uAD6C\uB97C \uB9CC\uB4E4\uACE0 \uCD08\uB300\uCF54\uB4DC\uB97C \uC804\uB2EC\uD558\uBA74, \uB2E4\uB978 \uC0AC\uB78C\uC774 \uAC19\uC740 \uCF54\uB4DC\uB85C \uCC38\uC5EC\uD569\uB2C8\uB2E4.</p>
+      ${i.setupMode?`
+        <form id="householdForm">
+          <div class="field"><label>\uB0B4 \uD45C\uC2DC \uC774\uB984</label><input id="setupDisplayName" value="${d(e)}" placeholder="\uC608: \uD604\uC870" required /></div>
+          ${i.setupMode==="create"?'<div class="field"><label>\uAC00\uAD6C \uC774\uB984</label><input id="householdName" value="\uC6B0\uB9AC\uC9D1" required /></div>':'<div class="field"><label>\uCD08\uB300\uCF54\uB4DC</label><input id="inviteCode" maxlength="8" style="text-transform:uppercase;letter-spacing:2px" placeholder="AB12CD34" required /></div>'}
+          <div class="btn-row"><button type="button" class="ghost-btn" data-setup="back">\uB4A4\uB85C</button><button class="primary-btn" type="submit">${i.setupMode==="create"?"\uAC00\uAD6C \uB9CC\uB4E4\uAE30":"\uCC38\uC5EC\uD558\uAE30"}</button></div>
+        </form>`:`<div class="setup-choice">
+        <button class="choice-card" data-setup="create"><b>\uC0C8 \uAC00\uAD6C \uB9CC\uB4E4\uAE30</b><span>\uBA3C\uC800 \uC2DC\uC791\uD558\uB294 \uC0AC\uB78C\uC774 \uC120\uD0DD\uD569\uB2C8\uB2E4. \uC0DD\uC131 \uD6C4 \uCD08\uB300\uCF54\uB4DC\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4.</span></button>
+        <button class="choice-card" data-setup="join"><b>\uCD08\uB300\uCF54\uB4DC\uB85C \uCC38\uC5EC\uD558\uAE30</b><span>\uBC30\uC6B0\uC790\uAC00 \uC804\uB2EC\uD55C 8\uC790\uB9AC \uCF54\uB4DC\uB97C \uC785\uB825\uD574 \uAC19\uC740 \uB370\uC774\uD130\uB97C \uC0AC\uC6A9\uD569\uB2C8\uB2E4.</span></button>
+      </div>`}
+    </div>
+  </div>`}function ne(){let e=i.tab==="home"||i.tab==="monthly";return`<header class="topbar">
+    <div class="topline">
+      <div class="brand">\uC6B0\uB9AC\uC9D1 \uC790\uC0B0\uD750\uB984</div>
+      <div class="sync-pill"><span class="sync-dot ${o.mode==="demo"?"off":""}"></span><span>${d(i.syncText)}</span></div>
+    </div>
+    ${e?`<div class="month-switch"><button data-month="prev" aria-label="\uC774\uC804 \uB2EC">\u2039</button><div class="month-title">${w(i.selectedMonth)}</div><button data-month="next" aria-label="\uB2E4\uC74C \uB2EC">\u203A</button></div>`:""}
+  </header>`}function oe(){let e=A(),t=A(N(i.selectedMonth,-1)),s=e.income?e.savings/e.income*100:0,a=[{name:o.state.profile.partnerA,used:e.usedA,budget:e.budgetA,color:""},{name:o.state.profile.partnerB,used:e.usedB,budget:e.budgetB,color:"green"},{name:"\uACF5\uB3D9",used:e.usedJoint,budget:e.budgetJoint,color:"orange"}],n=X(i.selectedMonth,6),r=Math.max(...n.flatMap(u=>{let b=A(u);return[b.income,b.expenses,b.savings]}),1),l=Q();return`<main>
+    <div class="hero">
+      <div class="hero-label">\uC774\uBC88 \uB2EC \uC801\uAE08\xB7\uC800\uCD95</div>
+      <div class="hero-amount">${y(e.savings)}</div>
+      <div class="hero-sub"><span>\uC800\uCD95\uB960 <strong>${s.toFixed(1)}%</strong></span><span>\uC6D4 \uC794\uC5EC <strong>${y(e.remaining)}</strong></span><span>\uC21C\uC790\uC0B0 <strong>${p(_())}\uC6D0</strong></span></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><div class="metric-label">\uC804\uCCB4 \uC21C\uC790\uC0B0</div><div class="metric-value">${p(_())}\uC6D0</div><div class="metric-foot success">\uAE08\uC735\uC790\uC0B0 - \uBD80\uCC44</div></div>
+      <div class="card"><div class="metric-label">\uC774\uBC88 \uB2EC \uC2E4\uC81C\xB7\uC608\uC0C1 \uC18C\uBE44</div><div class="metric-value">${p(e.expenses)}\uC6D0</div><div class="metric-foot ${e.expenses<=t.expenses?"success":"danger"}">\uC804\uC6D4 \uB300\uBE44 ${e.expenses-t.expenses>=0?"+":""}${p(e.expenses-t.expenses)}\uC6D0</div></div>
+    </div>
+    <section class="section">
+      <div class="section-head"><div class="section-title">\uC6D4\uAC04 \uC790\uAE08 \uBC30\uBD84</div><div class="section-note">\uC218\uC785 \uAE30\uC900</div></div>
+      <div class="summary-strip">
+        <div class="summary-box"><small>\uCD1D\uC218\uC785</small><strong>${p(e.income)}\uC6D0</strong></div>
+        <div class="summary-box"><small>\uC18C\uBE44\xB7\uC8FC\uAC70</small><strong>${p(e.expenses)}\uC6D0</strong></div>
+        <div class="summary-box"><small>\uC800\uCD95 \uD6C4 \uC794\uC5EC</small><strong class="${e.remaining<0?"danger":""}">${p(e.remaining)}\uC6D0</strong></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div class="section-title">\uC0DD\uD65C\uBE44 \uD750\uB984</div><div class="section-note">\uBC30\uC815 \uB300\uBE44 \uC0AC\uC6A9</div></div>
+      <div class="card progress-list">
+        ${a.map(u=>{let b=u.budget?Math.min(100,u.used/u.budget*100):0;return`<div class="progress-row"><div class="progress-name">${d(u.name)}</div><div class="progress-track"><div class="progress-bar ${u.color}" style="width:${b}%"></div></div><div class="progress-value">${p(Math.max(0,u.budget-u.used))}\uC6D0</div></div>`}).join("")}
+      </div>
+    </section>
+    ${l.length?`<section class="section"><div class="notice"><div>!</div><div><b>\uBCC0\uB3D9\uAE08 ${l.length}\uAC74\uC774 \uC544\uC9C1 \uBBF8\uC785\uB825\uC785\uB2C8\uB2E4.</b><p>${l.map(u=>d(u.name)).join(", ")}\uC740 \uC124\uC815\uB41C \uC608\uC0C1\uAE08\uC561\uC73C\uB85C \uACC4\uC0B0 \uC911\uC785\uB2C8\uB2E4.</p></div></div></section>`:""}
+    <section class="section">
+      <div class="section-head"><div class="section-title">\uCD5C\uADFC 6\uAC1C\uC6D4 \uD750\uB984</div><div class="section-note">\uC218\uC785\xB7\uC18C\uBE44\xB7\uC800\uCD95</div></div>
+      <div class="card">
+        <div class="bar-chart">${n.map(u=>{let b=A(u);return`<div class="month-col"><div class="bars"><div class="bar income" style="height:${b.income/r*100}%"></div><div class="bar expense" style="height:${b.expenses/r*100}%"></div><div class="bar saving" style="height:${b.savings/r*100}%"></div></div><div class="bar-label">${Number(u.slice(5))}\uC6D4</div></div>`}).join("")}</div>
+        <div class="legend"><span><i class="dot income"></i>\uC218\uC785</span><span><i class="dot expense"></i>\uC18C\uBE44</spa
