@@ -3,8 +3,8 @@
 
   const STYLE_ID = 'couple-finance-anonymous-access-style';
   const ACCOUNTS = [
-    { key: 'hyunjo', name: '현조', description: '현조 계정 생성 후 우리집 공간을 만듭니다.' },
-    { key: 'shinyoung', name: '신영', description: '신영 계정 생성 후 초대코드로 참여합니다.' }
+    { key: 'hyunjo', name: '현조', description: '현조로 회원가입한 뒤 우리집 공간을 만듭니다.' },
+    { key: 'shinyoung', name: '신영', description: '신영으로 회원가입한 뒤 초대코드로 참여합니다.' }
   ];
 
   function addStyles() {
@@ -47,8 +47,8 @@
 
     const original = button.innerHTML;
     button.disabled = true;
-    button.innerHTML = `<span class="simple-account-avatar">${account.name.slice(0, 1)}</span><span class="simple-account-text"><b>${account.name} 계정 생성 중…</b><span>잠시만 기다려주세요.</span></span>`;
-    status(`${account.name} 계정을 생성하고 있습니다.`, 'info');
+    button.innerHTML = `<span class="simple-account-avatar">${account.name.slice(0, 1)}</span><span class="simple-account-text"><b>${account.name} 회원가입 중…</b><span>잠시만 기다려주세요.</span></span>`;
+    status(`${account.name} 회원가입을 진행하고 있습니다.`, 'info');
 
     try {
       const { data, error } = await client.auth.signInAnonymously({
@@ -60,20 +60,20 @@
         }
       });
       if (error) throw error;
-      if (!data?.session) throw new Error('계정 세션을 만들지 못했습니다.');
+      if (!data?.session) throw new Error('회원 세션을 만들지 못했습니다.');
 
       localStorage.setItem('couple-finance-account-name', account.name);
-      status(`${account.name} 계정이 생성되었습니다. 부부 공간 설정으로 이동합니다.`, 'info');
+      status(`${account.name} 회원가입이 완료되었습니다. 부부 공간 설정으로 이동합니다.`, 'info');
       setTimeout(() => location.reload(), 450);
     } catch (error) {
-      console.error('Anonymous account error:', error);
+      console.error('Anonymous signup error:', error);
       const raw = String(error?.message || error || '');
       if (/anonymous.*disabled|anonymous sign-ins are disabled|signup is disabled/i.test(raw)) {
-        status('Supabase에서 익명 로그인이 비활성화되어 있습니다. 관리자 설정에서 “Allow anonymous sign-ins”를 켜야 합니다.', 'error');
+        status('Supabase에서 이메일 없는 회원가입이 비활성화되어 있습니다. “Allow anonymous sign-ins”를 켜야 합니다.', 'error');
       } else if (/rate limit/i.test(raw)) {
-        status('계정 생성 요청이 많습니다. 잠시 후 다시 시도해주세요.', 'error');
+        status('회원가입 요청이 많습니다. 잠시 후 다시 시도해주세요.', 'error');
       } else {
-        status(raw || '계정 생성 중 오류가 발생했습니다.', 'error');
+        status(raw || '회원가입 중 오류가 발생했습니다.', 'error');
       }
       button.disabled = false;
       button.innerHTML = original;
@@ -89,17 +89,17 @@
     card.innerHTML = `
       <div class="brand-mark">₩</div>
       <h1>우리집 자산흐름</h1>
-      <p class="simple-copy">이메일 인증 없이 사용할 사람을 선택하면 계정이 바로 생성됩니다. 각 휴대폰에서 한 번씩 진행하세요.</p>
+      <p class="simple-copy">이메일, 비밀번호, 인증메일 없이 사용할 사람을 선택하면 바로 회원가입됩니다. 각 휴대폰에서 한 번씩 진행하세요.</p>
       <div class="simple-account-list">
         ${ACCOUNTS.map((account, index) => `
           <button type="button" class="simple-account-button" data-anonymous-account="${index}">
             <span class="simple-account-avatar">${account.name.slice(0, 1)}</span>
-            <span class="simple-account-text"><b>${account.name} 계정 생성</b><span>${account.description}</span></span>
+            <span class="simple-account-text"><b>${account.name} 회원가입</b><span>${account.description}</span></span>
           </button>
         `).join('')}
       </div>
       <div id="simpleAuthStatus" class="simple-auth-status info" role="status" aria-live="polite"></div>
-      <div class="simple-security-note">계정은 현재 휴대폰에 안전하게 유지됩니다. 앱 데이터 삭제 또는 브라우저 초기화 시 다시 생성해야 합니다.</div>
+      <div class="simple-security-note">회원 세션은 현재 휴대폰에 유지됩니다. 앱 데이터 삭제 또는 브라우저 초기화 시 다시 회원가입해야 합니다.</div>
     `;
   }
 
