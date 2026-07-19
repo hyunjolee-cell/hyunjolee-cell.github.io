@@ -38,11 +38,16 @@ jobs:
           test -f _site/couple-finance/index.html
           test -f _site/couple-finance/app-v2.js
           test -f _site/couple-finance/app-v2.css
+          test -f _site/couple-finance/auth-bridge.js
+          test -f _site/couple-finance/auth-fix.js
           echo 'Couple finance deployment files:'
           find _site/couple-finance -maxdepth 2 -type f -print | sort
 
       - name: Validate couple finance JavaScript
-        run: node --check _site/couple-finance/app-v2.js
+        run: |
+          node --check _site/couple-finance/app-v2.js
+          node --check _site/couple-finance/auth-bridge.js
+          node --check _site/couple-finance/auth-fix.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
