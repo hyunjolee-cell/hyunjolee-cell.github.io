@@ -1,5 +1,6 @@
 (async()=>{
-  const paths=Array.from({length:9},(_,i)=>`./chunks/app-${String(i+1).padStart(3,'0')}.txt`);
+  const version='20260719-3';
+  const paths=Array.from({length:9},(_,i)=>`./chunks/app-${String(i+1).padStart(3,'0')}.txt?v=${version}`);
   try{
     const parts=await Promise.all(paths.map(async path=>{
       const response=await fetch(path,{cache:'no-store'});
