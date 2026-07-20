@@ -14,6 +14,7 @@
     }
   };
   const STYLE_ID = 'couple-finance-email-access-style';
+  const COOLDOWN_MS = 65_000;
   let mode = 'login';
 
   function addStyles() {
@@ -52,26 +53,36 @@
     return `CF!${visiblePassword}#${account.passwordSalt}`;
   }
 
+  function cooldownKey(email) {
+    return `couple-finance-signup-at:${email}`;
+  }
+
+  function remainingCooldown(email) {
+    const startedAt = Number(localStorage.getItem(cooldownKey(email)) || 0);
+    return Math.max(0, COOLDOWN_MS - (Date.now() - startedAt));
+  }
+
   function friendlyError(error, action = mode) {
     const raw = String(error?.message || error || '').trim();
     const lower = raw.toLowerCase();
+    const code = String(error?.code || '').toLowerCase();
 
-    if (lower.includes('email not confirmed')) {
-      return 'Supabase의 Confirm email 설정이 켜져 있어 가입 직후 로그인이 차단됐습니다. 이 설정만 끄면 별도 메일 인증 없이 바로 사용할 수 있습니다.';
+    if (code.includes('signup_requires_confirmation') || lower.includes('email not confirmed')) {
+      return 'Supabase의 Confirm email 설정이 켜져 있습니다. 이 설정을 끄기 전에는 메일 인증 없이 회원가입할 수 없습니다.';
+    }
+    if (code.includes('over_request_rate_limit') || lower.includes('rate limit') || lower.includes('too many requests')) {
+      return 'Supabase 인증 요청 제한에 걸렸습니다. 버튼을 더 누르지 말고 최소 60초 후 다시 시도해주세요. 이메일 발송 제한까지 걸린 경우 최대 1시간이 필요할 수 있습니다.';
     }
     if (lower.includes('invalid login credentials')) {
       return action === 'signup'
-        ? '회원가입 계정을 만들지 못했습니다. 잠시 후 회원가입을 다시 눌러주세요.'
-        : '아직 회원가입하지 않은 계정입니다. 회원가입 탭에서 먼저 생성해주세요.';
+        ? '회원가입 계정을 만들지 못했습니다. 요청 제한이 풀린 뒤 회원가입을 한 번만 다시 눌러주세요.'
+        : '아직 회원가입하지 않은 계정이거나 비밀번호가 다릅니다.';
     }
     if (lower.includes('user already registered')) {
       return '이미 가입된 계정입니다. 로그인 탭에서 로그인해주세요.';
     }
     if (lower.includes('signup is disabled')) {
       return 'Supabase에서 이메일 회원가입이 비활성화되어 있습니다.';
-    }
-    if (lower.includes('rate limit')) {
-      return '요청이 너무 많습니다. 잠시 후 다시 시도해주세요.';
     }
     return raw || '인증 처리 중 오류가 발생했습니다.';
   }
@@ -120,10 +131,9 @@
 
   async function signUp(client, visibleEmail, visiblePassword) {
     const account = ACCOUNTS[visibleEmail];
-    const authPassword = internalPassword(account, visiblePassword);
     const { data, error } = await client.auth.signUp({
       email: account.authEmail,
-      password: authPassword,
+      password: internalPassword(account, visiblePassword),
       options: {
         data: {
           display_name: account.displayName,
@@ -131,22 +141,12 @@
         }
       }
     });
-
-    if (error) {
-      const lower = String(error.message || '').toLowerCase();
-      if (lower.includes('already registered')) {
-        return signIn(client, visibleEmail, visiblePassword);
-      }
-      throw error;
-    }
-
+    if (error) throw error;
     if (data?.session) return data.session;
 
-    try {
-      return await signIn(client, visibleEmail, visiblePassword);
-    } catch (loginError) {
-      throw loginError;
-    }
+    const confirmationError = new Error('회원가입 후 로그인 세션이 생성되지 않았습니다.');
+    confirmationError.code = 'signup_requires_confirmation';
+    throw confirmationError;
   }
 
   document.addEventListener('click', event => {
@@ -186,9 +186,18 @@
       return;
     }
 
+    if (mode === 'signup') {
+      const remaining = remainingCooldown(email);
+      if (remaining > 0) {
+        status(`중복 요청을 막기 위해 ${Math.ceil(remaining / 1000)}초 후 회원가입할 수 있습니다.`, 'error');
+        return;
+      }
+      localStorage.setItem(cooldownKey(email), String(Date.now()));
+    }
+
     submit.disabled = true;
     submit.textContent = mode === 'login' ? '로그인 중…' : '회원가입 중…';
-    status(mode === 'login' ? '로그인을 확인하고 있습니다.' : '새 전용 계정을 만들고 바로 로그인하고 있습니다.', 'info');
+    status(mode === 'login' ? '로그인을 확인하고 있습니다.' : '회원가입 요청을 한 번만 전송하고 있습니다.', 'info');
 
     try {
       if (mode === 'login') await signIn(client, email, password);
