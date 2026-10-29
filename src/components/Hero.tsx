@@ -72,7 +72,7 @@ export function Hero() {
             className="grid size-9 place-items-center rounded-full bg-paiks-yellow text-void font-black text-sm"
             style={{ boxShadow: 'var(--shadow-glow-yellow)' }}
           >
-            B
+            P
           </span>
           <span className="text-[10px] tracking-[0.32em] text-muted uppercase md:text-xs">
             {meta.brand}

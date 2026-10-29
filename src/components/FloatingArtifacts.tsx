@@ -98,7 +98,7 @@ function BSVG({ size }: { size: number }) {
         fontSize="36"
         fill="#1f2e5c"
       >
-        B
+        P
       </text>
     </svg>
   )

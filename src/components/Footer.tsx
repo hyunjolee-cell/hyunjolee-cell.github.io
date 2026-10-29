@@ -65,7 +65,7 @@ export function Footer() {
             className="grid size-11 place-items-center rounded-full bg-paiks-yellow font-black text-paiks-navy-deep"
             style={{ boxShadow: 'var(--shadow-glow-yellow)' }}
           >
-            B
+            P
           </span>
           <p className="text-[11px] tracking-[0.4em] text-paiks-yellow uppercase md:text-xs">
             Closing · Whitepaper 2026

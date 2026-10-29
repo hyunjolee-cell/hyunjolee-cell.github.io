@@ -66,7 +66,7 @@ function PaiksDisc({ loading = false }: { loading?: boolean }) {
                 textShadow: '0 6px 18px rgba(20, 32, 70, 0.4)',
               }}
             >
-              B
+              P
             </span>
             <span
               className="absolute bottom-[-20%] left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-[0.42em] text-paiks-navy-deep/85 uppercase md:text-xs"
